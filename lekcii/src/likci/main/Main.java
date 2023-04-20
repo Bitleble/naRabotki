@@ -1,18 +1,14 @@
 package likci.main;
 
 import likci.GUI.GUI;
+import likci.GUI.LoginDialog;
 
 public class Main
 {
     public static void main(String[] args)
 
     {
-        GUI gui = new GUI();
-        gui.setTitle("Список лекций");
-        gui.setResizable(true);
-        gui.setVisible(true);
-        gui.setSize(80, 60);
-        gui.pack();
+        LoginDialog.startApp();
     }
 }
 

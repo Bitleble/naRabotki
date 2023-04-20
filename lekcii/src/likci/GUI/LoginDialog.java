@@ -6,10 +6,9 @@ import java.awt.event.*;
 
 public class LoginDialog extends JDialog
 {
-    private static final long serialVersionUID = 1L;
-
     public JTextField tfLogin, tfPassword;
     public JButton    btnOk, btnCancel;
+
 
     public LoginDialog(JFrame parent)
     {
@@ -27,7 +26,10 @@ public class LoginDialog extends JDialog
         pack();
         // выводим окно на экран
         setVisible(true);
+
     }
+
+
     // этот метод будет возвращать панель с созданным расположением
     private JPanel createGUI()
     {
@@ -77,11 +79,57 @@ public class LoginDialog extends JDialog
         panel.add(password);
         panel.add(Box.createVerticalStrut(17));
         panel.add(flow);
+
         // готово
         return panel;
     }
     // тестовый метод для проверки диалогового окна
+
+    /*btnOk.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                checkData();
+            }
+        });*/
+
+
+     public static LoginDialog createWindow(){
+         return new LoginDialog(new JFrame());
+     }
+
+
+
+
+    public static void checkData(LoginDialog app){
+        String password = app.tfPassword.getText();
+        String login = app.tfLogin.getText();
+        // До else необходимо вставить проверку из файла (два варианта в телегу тебе кидал, я бы их в json держал, ибо для каждого пользователя будут разные завершённые лекции
+        // Почему бы и не подключить бд то ? Так будет легче реализовывать для каждого юзера разные состояния(у разных людей разные пройденные лекции и тесты, а то так даже не серьёзно)
+        if (login.equals("I") && password.equals("123")){
+            app.dispose();
+            GUI gui = new GUI();
+            gui.setTitle("Список лекций");
+            gui.setResizable(true);
+            gui.setVisible(true);
+            gui.setSize(80, 60);
+            gui.pack();
+        } else {
+            JOptionPane.showMessageDialog(app,"Неверный логин или пароль");
+        }
+    }
+
+    public static void startApp(){
+        LoginDialog app = createWindow();
+        app.btnOk.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                checkData(app);
+            }
+        });
+        // Создать метод проверки данных и вставить ниже.
+
+    }
     public static void main(String[] args) {
-        new LoginDialog(new JFrame());
+        startApp();
     }
 }
